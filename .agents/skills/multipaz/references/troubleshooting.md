@@ -34,7 +34,7 @@
 
 ## Helpful anchors
 
-- Dependency problems: `python3 -B scripts/check_multipaz_dependencies.py`
+- Dependency problems: follow [dependency-guide.md](dependency-guide.md) to inspect declarations, version aliases, and the affected module's resolved dependencies.
 - Android manifest and service wiring: `samples/testapp/src/androidMain/AndroidManifest.xml`
 - iOS supported presentment paths: `samples/SwiftTestApp/SwiftTestApp/Iso18013ProximityPresentmentScreen.swift`
 - Trust and certificate examples: `samples/testapp/src/commonMain/kotlin/org/multipaz/testapp/ui/ConsentPromptScreen.kt`

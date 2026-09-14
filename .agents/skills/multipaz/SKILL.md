@@ -10,7 +10,7 @@ Use this skill when the task is about integrating, upgrading, debugging, or vali
 ## Rules
 
 - Treat the current repository as the primary source of truth. Prefer current code, tests, samples, and build files over prose documentation.
-- Inspect the target project before editing it. From a repo root containing this skill, run `python3 -B .agents/skills/multipaz/scripts/inspect_multipaz_project.py .` first unless the task is purely explanatory and already scoped to a known file. If you are executing from inside the skill directory, use the shorter `scripts/...` paths.
+- Inspect the target project before editing it: read its build configuration, dependency declarations, source sets, and relevant platform entry points. Use [references/project-inspection.md](references/project-inspection.md) to guide the inspection; keep purely explanatory work scoped to the files needed to answer the question.
 - Check version compatibility before generating code. Do not silently upgrade Multipaz or unrelated dependencies.
 - Keep Android-only code in `androidMain` or Android app modules. Keep iOS-only code in `iosMain` or native Swift code. Keep shared logic in `commonMain` only when the APIs are actually multiplatform.
 - Multipaz NFC credential presentation is currently Android-only. Never generate iOS NFC presentation code, never claim feature parity, and never tell the user to add iOS NFC entitlements for a Multipaz NFC presentment flow.
@@ -21,7 +21,7 @@ Use this skill when the task is about integrating, upgrading, debugging, or vali
 ## Workflow
 
 1. Inspect the project.
-   Run `python3 -B .agents/skills/multipaz/scripts/inspect_multipaz_project.py [path]` from the target repo root, or `python3 -B scripts/inspect_multipaz_project.py [path]` from this skill directory. Then read [references/project-inspection.md](references/project-inspection.md) plus [references/dependency-guide.md](references/dependency-guide.md).
+   Read [references/project-inspection.md](references/project-inspection.md) and [references/dependency-guide.md](references/dependency-guide.md). Locate and read the target project files directly, using `rg` or equivalent search tools to identify modules, versions, dependencies, and platform wiring.
 2. Classify the work.
    Decide whether the task is setup, issuance, storage, presentment, verification, verifier request construction, server integration, migration, or troubleshooting.
 3. Load only the relevant references.
@@ -31,7 +31,7 @@ Use this skill when the task is about integrating, upgrading, debugging, or vali
 5. Respect source-set and platform boundaries.
    Shared document logic can live in `commonMain`; Android NFC services and manifest wiring must stay Android-specific; iOS wallet or Digital Credentials work must follow the supported Swift or `iosMain` paths.
 6. Implement with validation in mind.
-   Add the smallest necessary dependency and code change, then run `python3 -B .agents/skills/multipaz/scripts/check_multipaz_dependencies.py .` and `bash .agents/skills/multipaz/scripts/validate_multipaz_project.sh --dry-run .` from the repo root.
+   Add the smallest necessary dependency and code change, re-check dependency alignment and source-set boundaries, then run the affected modules' existing build and test tasks. See Validation below.
 7. For OpenID4VCI holder work, verify the complete platform handoff.
    Do not stop at parsing an offer. Confirm app initialization, transport, trusted wallet attestation, OAuth/browser authorization, redirect capture, and document-store insertion. Read [references/openid4vci.md](references/openid4vci.md).
 8. For iOS browser-launched OpenID4VCI offers, verify both URL scheme registration and the SwiftUI/UIKit URL callback into shared code.
@@ -64,10 +64,9 @@ Use this skill when the task is about integrating, upgrading, debugging, or vali
 
 ## Validation
 
-- Run `python3 -B scripts/check_multipaz_dependencies.py [path]`.
-- Run `python3 -B .agents/skills/multipaz/scripts/check_multipaz_dependencies.py [path]` from the repo root, or `python3 -B scripts/check_multipaz_dependencies.py [path]` from this skill directory.
-- Run `bash .agents/skills/multipaz/scripts/validate_multipaz_project.sh --dry-run [path]` from the repo root, or `bash scripts/validate_multipaz_project.sh --dry-run [path]` from this skill directory.
-- For a KMP app with `androidApp` and `shared` modules, prefer targeted build checks such as `./gradlew :androidApp:assembleDebug :shared:compileKotlinIosSimulatorArm64` in addition to the generic validation script.
+- Re-read changed dependency declarations and follow version-catalog aliases or convention plugins to their definitions. Check Multipaz version alignment and platform-specific imports in shared or iOS sources; cite the actual files supporting the conclusion.
+- Select targeted build and test tasks from the project's build files or documented commands. If task names are unclear, inspect `./gradlew :<module>:tasks --all` for an actual module.
+- A task listing or Gradle `--dry-run` checks task selection, not compilation or tests. Report unavailable checks and tasks with no test sources accurately.
 - For OpenID4VCI or other holder flows that construct `HttpClient`, verify platform Ktor client engines are declared and, when possible, run an Android or iOS launch smoke test. Compile can pass while `HttpClient()` still fails at runtime without an engine.
 - For Android OpenID4VCI real-issuer testing, verify the offer fills the app, tapping issue opens browser authorization when required, the issuer redirects back into the app, and the issued credential appears in the document store.
 - For Android NFC work, note that runtime validation usually requires physical hardware.

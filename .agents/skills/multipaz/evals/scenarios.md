@@ -3,11 +3,11 @@
 ## 1. Inspect an existing KMP project and report whether Multipaz is already configured correctly
 
 - Input task: Inspect this Kotlin Multiplatform wallet project and tell me whether Multipaz is configured correctly.
-- Expected skill behavior: run the inspection script, classify modules and targets, summarize dependency style, and identify missing or suspicious setup.
+- Expected skill behavior: read the project configuration and source layout, classify modules and targets, summarize dependency style, and identify missing or suspicious setup.
 - Required inspection steps: inspect Gradle wrapper, versions, targets, source sets, Multipaz dependencies, manifests, plists, and entitlements.
 - Mistakes to avoid: skipping inspection, guessing versions, or assuming Android and iOS feature parity.
 - Evidence of success: a report grounded in actual files and dependencies.
-- Validation expectations: run both inspection scripts.
+- Validation expectations: cite the actual configuration files and source locations supporting the module, version, dependency, and platform findings; no bundled scripts are required.
 
 ## 2. Add the minimum dependencies required for a basic holder application
 
@@ -16,7 +16,7 @@
 - Required inspection steps: inspect current dependency style and whether Compose, SwiftUI, or dcapi is already used.
 - Mistakes to avoid: adding verifier, server, or Android-only modules without evidence.
 - Evidence of success: minimal, version-aligned dependency changes.
-- Validation expectations: dependency checker reports no new inconsistencies.
+- Validation expectations: changed declarations remain version-aligned and correctly scoped; relevant existing compile tasks pass.
 
 ## 3. Create and securely store a locally generated credential
 
@@ -124,7 +124,7 @@
 - Required inspection steps: inspect current Multipaz version, current APIs, and sample provenance.
 - Mistakes to avoid: silently upgrading all dependencies.
 - Evidence of success: mismatch is explained with specific version evidence.
-- Validation expectations: dependency checker or build output supports the conclusion.
+- Validation expectations: concrete dependency declarations, resolved dependency reports, or build output support the conclusion.
 
 ## 15. Explain and repair a certificate trust-chain configuration problem
 
@@ -165,11 +165,11 @@
 ## 19. Detect Android-only NFC code that was incorrectly placed in `commonMain`
 
 - Input task: Find Android-only NFC code in shared code.
-- Expected skill behavior: run the dependency checker and flag Android-only markers in shared or iOS source sets.
+- Expected skill behavior: search shared and iOS source sets for Android-specific imports and presentment classes, inspect each match, and flag actual platform-boundary violations.
 - Required inspection steps: scan `commonMain` and iOS sources for Android-specific imports and presentment classes.
 - Mistakes to avoid: missing `PresentmentActivity`, Android manifest assumptions, or APDU services.
 - Evidence of success: flagged files and markers are concrete.
-- Validation expectations: checker output contains the evidence.
+- Validation expectations: cite the offending files and imports or API usage, and explain their source-set placement; do not infer a violation from a keyword match alone.
 
 ## 20. Recommend supported iOS alternatives when a developer asks for NFC presentation
 

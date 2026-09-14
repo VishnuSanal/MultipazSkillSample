@@ -4,7 +4,7 @@
 
 - Check whether the project uses `gradle/libs.versions.toml`, direct strings, or convention plugins.
 - Prefer the project's existing style.
-- Use `python3 -B scripts/check_multipaz_dependencies.py` to find current Multipaz declarations and inconsistencies.
+- Search the target project's Gradle files, version catalogs, and build logic for `org.multipaz`, `multipaz`, and referenced dependency aliases. For example, from the project root: `rg -n "org[.]multipaz|multipaz" -g "*.gradle" -g "*.gradle.kts" -g "*.toml" -g "*.properties" -g "*.kt" -g "!**/build/**" -g "!**/.gradle/**" .`. Follow aliases and version definitions before judging whether versions are aligned.
 
 ## Current repository evidence
 
@@ -35,5 +35,5 @@
 
 ## Validation
 
-- Re-run dependency inspection after edits.
+- Re-read changed declarations and confirm their versions and source-set placement. If resolved versions are unclear, use the affected module's `dependencies` or `dependencyInsight` task with a configuration verified to exist. Validate changes with the affected module's actual compile and test tasks.
 - If a feature request depends on `multipaz-compose` or `multipaz-dcapi`, verify the platform-specific dependencies and activities from the sample before adding them.

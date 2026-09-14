@@ -2,13 +2,13 @@
 
 ## First pass
 
-Run:
+From the target project root, locate the build and platform configuration files. For example:
 
 ```bash
-python3 -B .agents/skills/multipaz/scripts/inspect_multipaz_project.py [project-path]
+rg --files --hidden -g "!.git/**" -g "!**/build/**" -g "!**/.gradle/**" -g "!**/node_modules/**" -g "settings.gradle*" -g "build.gradle*" -g "gradle-wrapper.properties" -g "*.versions.toml" -g "gradle.properties" -g "AndroidManifest.xml" -g "*Info.plist" -g "*.entitlements" -g "project.pbxproj"
 ```
 
-The script should tell you:
+Read the relevant files and follow custom version catalogs or included build logic referenced by settings. Record file evidence for:
 
 - Gradle wrapper version
 - Kotlin, AGP, Compose, and Multipaz versions when discoverable
@@ -20,10 +20,10 @@ The script should tell you:
 - Android NFC declarations
 - suspicious iOS NFC-related configuration that does not imply support
 
-## Manual follow-up
+## Follow-up
 
-- Read `settings.gradle.kts` to verify included modules and composite builds.
-- Read the target module `build.gradle.kts` files to see whether the app already exports iOS frameworks, uses Compose, or depends on `multipaz-dcapi`.
+- Read `settings.gradle.kts` or `settings.gradle` to verify included modules, custom version catalogs, and composite builds.
+- Read the target module `build.gradle.kts` or `build.gradle` files and referenced convention plugins to see whether the app already exports iOS frameworks, uses Compose, or depends on `multipaz-dcapi`.
 - Check whether the app already has holder, verifier, or issuer code paths.
 
 ## Classification hints

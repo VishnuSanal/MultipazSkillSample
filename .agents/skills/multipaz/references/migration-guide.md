@@ -20,4 +20,4 @@
 2. Compare current module names to the current repository module set.
 3. Update only the necessary Multipaz coordinates or project dependencies.
 4. Rebuild Android and iOS targets affected by the change.
-5. Re-run dependency inspection and validation scripts.
+5. Re-check Multipaz version alignment and source-set placement in the changed files, then run relevant existing tests. Use resolved dependency reports when declarations alone do not explain a mismatch; report the build and test results with the version evidence.

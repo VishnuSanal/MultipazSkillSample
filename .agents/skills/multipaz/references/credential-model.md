@@ -7,7 +7,7 @@
 - mapping claims to mdoc or SD-JWT VC
 - deciding whether logic can remain shared in `commonMain`
 
-## Repository anchors
+## Pinned upstream anchors
 
 - Standard known types: `multipaz-doctypes/src/commonMain/kotlin/org/multipaz/documenttype/knowntypes`
 - Utopia examples: `multipaz-utopia/src/commonMain/kotlin/org/multipaz/utopia/knowntypes`

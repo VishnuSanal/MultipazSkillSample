@@ -6,14 +6,14 @@
 - implementing redirect handling and wallet provisioning
 - wiring backend assertions, attestations, or local test stubs
 
-## Repository anchors
+## Pinned upstream anchors
 
 - Wallet-side sample support: `samples/SwiftTestApp/SwiftTestApp/ProvisioningSupport.swift`
 - Compose provisioning UI: `multipaz-compose/src/commonMain/kotlin/org/multipaz/compose/provisioning/ProvisioningBottomSheet.kt`
 - Backend implementation example: `multipaz-backend-server/src/main/java/org/multipaz/backend/openid4vci/OpenID4VCIBackendImpl.kt`
-- KMP sample app structure: `MultipazGettingStartedSample` in `openwallet-foundation/multipaz-samples`
-- Holder codelab flow: Multipaz Utopia Wholesale holder "obtaining a credential"
-- Issuer codelab flow: Multipaz Utopia Wholesale issuer setup
+- KMP sample app structure: [`MultipazGettingStartedSample`](https://github.com/openwallet-foundation/multipaz-samples/tree/main/MultipazGettingStartedSample) in [`openwallet-foundation/multipaz-samples`](https://github.com/openwallet-foundation/multipaz-samples)
+- Holder codelab flow: Multipaz Utopia Wholesale holder "obtaining a credential" — https://developer.multipaz.org/codelabs/utopia-wholesale-codelab/holder/obtaining-a-credential
+- Issuer codelab flow: Multipaz Utopia Wholesale issuer setup — https://developer.multipaz.org/codelabs/utopia-wholesale-codelab/issuer
 - Holder module: `multipaz`
 - Issuer/server module: `multipaz-openid4vci`
 

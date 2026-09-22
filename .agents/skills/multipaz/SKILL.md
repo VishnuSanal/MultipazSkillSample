@@ -1,5 +1,9 @@
 ---
 name: multipaz
+license: Apache-2.0
+compatibility: Content verified against Multipaz upstream commit e4b1d4381be562064a284dc0278899f5313eba58 (2026-09-17), which is 15 commits ahead of release 0.101.0. Confirm the target project's resolved Multipaz version against that baseline before reusing pinned paths or APIs.
+metadata:
+  version: "1.0.0"
 description: Use this skill for Multipaz, ISO mdoc or mDL, OpenID4VCI, OpenID4VP, DCQL, W3C Digital Credentials API, credential holder, verifier, issuer, QR presentation, BLE presentation, Android NFC credential presentation, Kotlin Multiplatform wallet, or Swift and Compose integration work built on the Multipaz repository or released modules. Apply it when a task needs module selection, version-aware implementation, project inspection, platform integration, troubleshooting, or migration for Multipaz. Do not use it for unrelated Kotlin work. Never claim that Multipaz NFC credential presentation works on iOS.
 ---
 
@@ -9,11 +13,11 @@ Use this skill when the task is about integrating, upgrading, debugging, or vali
 
 ## Rules
 
-- Treat the current repository as the primary source of truth. Prefer current code, tests, samples, and build files over prose documentation.
+- Treat the target repository as the primary source of truth. Prefer its current code, tests, samples, and build files over prose documentation. Upstream Multipaz paths in this skill are pinned examples; read [references/upstream-source.md](references/upstream-source.md) before relying on them.
 - Inspect the target project before editing it: read its build configuration, dependency declarations, source sets, and relevant platform entry points. Use [references/project-inspection.md](references/project-inspection.md) to guide the inspection; keep purely explanatory work scoped to the files needed to answer the question.
 - Check version compatibility before generating code. Do not silently upgrade Multipaz or unrelated dependencies.
 - Keep Android-only code in `androidMain` or Android app modules. Keep iOS-only code in `iosMain` or native Swift code. Keep shared logic in `commonMain` only when the APIs are actually multiplatform.
-- Multipaz NFC credential presentation is currently Android-only. Never generate iOS NFC presentation code, never claim feature parity, and never tell the user to add iOS NFC entitlements for a Multipaz NFC presentment flow.
+- Multipaz NFC credential presentation is currently Android-only. Never generate iOS NFC presentation code, never claim feature parity, and never tell the user to add iOS NFC entitlements for a Multipaz NFC presentment flow. Do not over-correct into "no NFC on iOS": upstream ships CoreNFC-backed tag *reading* for the verifier role under `multipaz/src/iosMain`, which does not change the presentment boundary. See [references/ios-platform.md](references/ios-platform.md).
 - Prefer minimal dependency changes and reuse project conventions such as version catalogs, convention plugins, included builds, or direct dependency style already present in the target project.
 - Do not invent APIs, Maven coordinates, Gradle modules, package names, or platform requirements.
 - Apply security-sensitive workflows conservatively. Do not hardcode production secrets, commit private keys, disable TLS validation, log complete credentials, or treat parsing success as trust.
@@ -27,7 +31,7 @@ Use this skill when the task is about integrating, upgrading, debugging, or vali
 3. Load only the relevant references.
    Use the routing list below instead of loading everything.
 4. Select modules and samples.
-   Match the requested workflow to current repo modules and sample files. Prefer sample-backed implementations.
+   Match the requested workflow to target-project modules and samples. Use an upstream anchor only when it is available at a compatible version; otherwise report that the evidence is unavailable instead of treating the anchor as local.
 5. Respect source-set and platform boundaries.
    Shared document logic can live in `commonMain`; Android NFC services and manifest wiring must stay Android-specific; iOS wallet or Digital Credentials work must follow the supported Swift or `iosMain` paths.
 6. Implement with validation in mind.
@@ -54,7 +58,7 @@ Use this skill when the task is about integrating, upgrading, debugging, or vali
 
 ## Implementation Guardrails
 
-- For Android NFC, verify the sample path before writing code. The current repository uses Android manifest services such as `samples/testapp/src/androidMain/kotlin/org/multipaz/testapp/TestAppCombinedNfcService.kt` and `TestAppMdocNdefService.kt`.
+- For Android NFC, verify the version-matched sample path before writing code. The pinned upstream source uses `samples/testapp/src/androidMain/kotlin/org/multipaz/testapp/TestAppCombinedNfcService.kt` and `TestAppMdocNdefService.kt`; those paths are not assumed to be in the target project.
 - For iOS, use supported alternatives such as QR presentment, BLE-backed proximity, browser or URI-scheme flows, or Identity Document / Digital Credentials integration only after verifying the requested path in the selected version.
 - When the user asks for cross-platform NFC, explain the platform split clearly: Android supported, iOS not currently supported for Multipaz NFC credential presentation.
 - For Android OpenID4VCI, initialize Multipaz with the Android application context before using `Platform` storage or secure areas, add network permission for real issuers, and wire both the credential-offer scheme and the OAuth redirect scheme.

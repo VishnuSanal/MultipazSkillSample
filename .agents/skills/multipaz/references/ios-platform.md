@@ -10,8 +10,13 @@ Multipaz NFC credential presentation is currently not supported on iOS.
 - Adding `CoreNFC` or an NFC entitlement does not create Multipaz NFC presentation support.
 - Do not copy Android NFC APIs or Android service logic into `iosMain` or shared code.
 - Do not claim that a common cross-platform NFC implementation works for both Android and iOS.
+- Do not over-correct into "NFC does not exist on iOS". Upstream ships CoreNFC-backed
+  *tag reading* for the verifier/reader role under
+  `multipaz/src/iosMain/kotlin/org/multipaz/nfc/` (`NfcTagReader.ios.kt`,
+  `NfcIsoTagIos.kt`). Reading a presented tag is not credential presentation: the
+  Android-only boundary applies to the holder/presentment side only.
 
-## Verified repository anchors
+## Pinned upstream anchors
 
 - iOS QR-based proximity presentment: `samples/SwiftTestApp/SwiftTestApp/Iso18013ProximityPresentmentScreen.swift`
 - iOS Identity Document integration: `samples/SwiftTestApp/IdentityDocumentProviderExtension/DocumentProviderExtension.swift`

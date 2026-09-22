@@ -180,6 +180,48 @@
 - Evidence of success: the alternative path is explicitly verified against the current version.
 - Validation expectations: response preserves the Android-only NFC boundary.
 
+## 21. Work safely when the target project has no Multipaz source checkout
+
+- Input task: Add Android NFC presentment to this KMP app. It has no Multipaz
+  dependency and no local `samples/testapp` directory.
+- Expected skill behavior: inspect the target, report the missing Multipaz version
+  and sample evidence, and avoid claiming upstream paths are locally verified.
+- Required inspection steps: inspect Gradle dependencies and module layout; identify
+  whether a compatible Multipaz source checkout or release sample is available.
+- Mistakes to avoid: copying a pinned-upstream API without version compatibility,
+  inventing a dependency version, or treating an upstream sample path as a target
+  project path.
+- Evidence of success: the response states what evidence is missing and asks for or
+  locates version-matched source before producing implementation code.
+- Validation expectations: file and dependency evidence supports the conclusion.
+
+## 22. Build a verifier request with DCQL and OpenID4VP for a verifier app
+
+- Input task: Add a verifier request that asks for an mDL and return it over OpenID4VP.
+- Expected skill behavior: separate request construction from holder transport, build the DCQL from a verified document type, carry requester trust instead of treating a parsed request as trusted, and keep request composition in shared code while entry-point wiring stays platform specific.
+- Required inspection steps: inspect existing request models, canned requests, document type metadata, and whether the project already has verifier or verifier-server code.
+- Mistakes to avoid: inventing DCQL fields, describing DCQL or OpenID4VP as a transport, or putting URI-scheme/browser entry points in `commonMain`.
+- Evidence of success: the request matches sample-backed DCQL and the protocol/transport split is stated explicitly.
+- Validation expectations: the request parses against a verified document type, and affected targets compile.
+
+## 23. Wire a server-side issuer or verifier module
+
+- Input task: Stand up a local OpenID4VCI issuer using Multipaz server modules.
+- Expected skill behavior: choose the server-oriented modules (`:multipaz-openid4vci`, `:multipaz-openid4vci-server`, `:multipaz-backend-server`, `:multipaz-verifier-server`) instead of mobile holder artifacts, keep backend secrets out of app code, and treat embedded keys as sample-only.
+- Required inspection steps: inspect the target's server build files, resources, and whether a backend module already exists; verify the module names against [references/architecture.md](../references/architecture.md).
+- Mistakes to avoid: adding a server artifact to a shared mobile module, adding a server module to a holder app, or presenting a local test stub as a production issuer.
+- Evidence of success: module choices and trust configuration are grounded in the pinned module map and backend sample.
+- Validation expectations: the server module's own build/test tasks run, and no client-side dependency changes are made without cause.
+
+## 24. Do not apply this skill to work that does not involve Multipaz
+
+- Input task: Implement generic Android NFC card emulation, or a W3C Digital Credentials API integration, in a project with no Multipaz dependency and no Multipaz in scope.
+- Expected skill behavior: recognize that the task is outside this skill, answer from general platform knowledge, and say plainly that no Multipaz guidance was applied.
+- Required inspection steps: confirm the project has no `org.multipaz` dependency and that the user did not ask for Multipaz.
+- Mistakes to avoid: injecting Multipaz modules, pinned sample paths, or Multipaz APIs into a non-Multipaz answer; claiming a pinned upstream path exists locally.
+- Evidence of success: the answer contains no Multipaz-specific artifacts that the project does not use.
+- Validation expectations: no Multipaz dependency, module, or sample path is introduced; if the project genuinely has Multipaz, the response says so instead.
+
 ## Required NFC Evaluation Behavior
 
 Scenario: Add Multipaz NFC credential presentation to both Android and iOS.

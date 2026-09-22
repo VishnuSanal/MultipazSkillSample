@@ -6,9 +6,11 @@
 - Prefer the project's existing style.
 - Search the target project's Gradle files, version catalogs, and build logic for `org.multipaz`, `multipaz`, and referenced dependency aliases. For example, from the project root: `rg -n "org[.]multipaz|multipaz" -g "*.gradle" -g "*.gradle.kts" -g "*.toml" -g "*.properties" -g "*.kt" -g "!**/build/**" -g "!**/.gradle/**" .`. Follow aliases and version definitions before judging whether versions are aligned.
 
-## Current repository evidence
+## Pinned upstream evidence
 
-- Versions are centralized in `gradle/libs.versions.toml`.
+- The following paths are from the upstream commit recorded in
+  [upstream-source.md](upstream-source.md), not from every target project.
+- Upstream versions are centralized in `gradle/libs.versions.toml`.
 - Internal samples usually depend on local projects such as `project(":multipaz")`, `project(":multipaz-compose")`, `project(":multipaz-dcapi")`, and `project(":multipaz-openid4vci")`.
 - `samples/testapp/build.gradle.kts` shows a broad holder app stack.
 - `samples/SwiftTestApp/build.gradle.kts` shows the iOS XCFramework export surface.

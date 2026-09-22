@@ -1,5 +1,4 @@
 {
-  "_comment": "Reference: references/dcql.md. Fill in values from a verified document type and request model.",
   "credentials": [
     {
       "id": "mdl-mandatory",

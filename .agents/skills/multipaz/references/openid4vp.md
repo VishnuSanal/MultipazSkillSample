@@ -6,7 +6,7 @@
 - wiring URI scheme or browser-based launch points
 - building verifier requests that embed OpenID4VP payloads
 
-## Repository anchors
+## Pinned upstream anchors
 
 - Android URI-scheme activity: `samples/testapp/src/androidMain/kotlin/org/multipaz/testapp/TestAppUriSchemePresentmentActivity.kt`
 - Android manifest scheme handling: `samples/testapp/src/androidMain/AndroidManifest.xml`

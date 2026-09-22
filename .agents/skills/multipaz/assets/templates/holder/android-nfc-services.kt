@@ -1,18 +1,18 @@
-// Reference: references/android-platform.md
-// Sample anchor: samples/testapp/src/androidMain/kotlin/org/multipaz/testapp/TestAppCombinedNfcService.kt
+// This file is deliberately a review checklist, not a paste-ready implementation.
+// A CombinedNfcService requires three version-matched service implementations and a
+// host-APDU XML resource. Supplying only the combined service produces unusable code.
+//
+// Before implementing Android NFC:
+// 1. Read references/upstream-source.md and identify compatible source evidence.
+// 2. Inspect the complete upstream set at the pinned commit:
+//    samples/testapp/src/androidMain/kotlin/org/multipaz/testapp/
+//      TestAppCombinedNfcService.kt
+//      TestAppMdocNdefService.kt
+//      TestAppMdocNfcV2Service.kt
+//      TestAppMdocNfcDataTransferService.kt
+// 3. Adapt its app initialization, PresentmentSource, prompt model, transport
+//    options, and consent lifecycle to the target app; do not copy test-app globals.
+// 4. Add a matching res/xml/combined_nfc_service.xml and manifest service entry.
+// 5. Keep all resulting code in androidMain or the Android application module.
+//
 // Multipaz NFC credential presentation is currently Android-only.
-
-import kotlinx.io.bytestring.ByteString
-import org.multipaz.compose.mdoc.CombinedNfcService
-import org.multipaz.compose.mdoc.NfcApduService
-import org.multipaz.nfc.Nfc
-
-class YourCombinedNfcService : CombinedNfcService() {
-    override fun buildServices(): Map<ByteString, NfcApduService> {
-        return mapOf(
-            Nfc.NDEF_APPLICATION_ID to YourMdocNdefService(this, ::sendResponseApdu),
-            Nfc.MDOC_NFC_ENGAGEMENT_V2_AID to YourMdocNfcV2Service(this, ::sendResponseApdu),
-            Nfc.ISO_MDOC_NFC_DATA_TRANSFER_APPLICATION_ID to YourMdocNfcDataTransferService(this, ::sendResponseApdu)
-        )
-    }
-}

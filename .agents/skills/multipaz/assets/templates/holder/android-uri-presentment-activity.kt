@@ -1,5 +1,6 @@
 // Reference: references/openid4vp.md
-// Sample anchor: samples/testapp/src/androidMain/kotlin/org/multipaz/testapp/TestAppUriSchemePresentmentActivity.kt
+// Pinned upstream sample anchor (not assumed local):
+// samples/testapp/src/androidMain/kotlin/org/multipaz/testapp/TestAppUriSchemePresentmentActivity.kt
 
 import org.multipaz.compose.presentment.UriSchemePresentmentActivity
 

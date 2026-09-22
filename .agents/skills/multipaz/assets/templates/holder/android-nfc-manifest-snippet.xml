@@ -1,4 +1,6 @@
-<!-- Reference: references/android-platform.md and references/proximity-presentation.md -->
+<!-- Merge this into an existing AndroidManifest.xml; do not paste it as a second manifest. -->
+<!-- Copy/adapt the matching res/xml/combined_nfc_service.xml before using this service. -->
+<!-- Reference: references/android-platform.md, references/proximity-presentation.md, and upstream-source.md. -->
 <!-- Multipaz NFC credential presentation is currently Android-only. Do not reuse this for iOS. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-feature

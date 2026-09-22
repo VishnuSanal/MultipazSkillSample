@@ -1,8 +1,11 @@
 # Architecture
 
-## Current module map
+## Pinned upstream module map
 
-Verified from `settings.gradle.kts`.
+Derived from the upstream `settings.gradle.kts` at the commit recorded in
+[upstream-source.md](upstream-source.md), including tooling and test modules but
+not included builds such as `build-logic`. This is not a claim about the target
+project's module layout.
 
 - `:multipaz`: core KMP library for credential, crypto, CBOR, trust, mdoc transport, presentment, storage, and secure-area APIs.
 - `:multipaz-compose`: Compose Multiplatform UI and Android integration helpers, including presentment and NFC service wrappers.
@@ -11,12 +14,19 @@ Verified from `settings.gradle.kts`.
 - `:multipaz-doctypes`: standard document types such as mDL and Photo ID.
 - `:multipaz-utopia`: Utopia example document types and requests.
 - `:multipaz-longfellow`: Zero-knowledge proof integration.
-- `:multipaz-openid4vci`: provisioning and wallet-side OpenID4VCI support.
+- `:multipaz-openid4vci`: OpenID4VCI protocol module; inspect version-matched
+  holder and server samples before selecting it.
 - `:multipaz-verifier`: verifier-side client logic.
 - `:multipaz-csa`: Cloud Secure Area support.
 - `:multipaz-cbor-rpc`: multiplatform RPC support used by backend-linked flows.
 - Server modules: `:multipaz-server`, `:multipaz-backend-server`, `:multipaz-openid4vci-server`, `:multipaz-verifier-server`, `:multipaz-csa-server`, `:multipaz-records-server`, `:multipaz-server-frontend`, `:multipaz-server-deployment`.
 - Samples: `:samples:testapp`, `:samples:SwiftTestApp`.
+- Other included modules at this pin: `:multipaz-records`, `:multipaz-android-legacy`
+  (legacy Android identity APIs), `:multipaz:SwiftBridge` (Xcode project bridging
+  the Kotlin framework to Swift), `:xcframework` (builds the aggregated `Multipaz`
+  iOS XCFramework), `:multipazctl` (command-line tool), `:multipaz-tools:web` and
+  `:multipaz-tools:server` (tools.multipaz.org), and the test-only
+  `:multipaz-dcapi:matcherTest`.
 
 ## Important sample anchors
 
